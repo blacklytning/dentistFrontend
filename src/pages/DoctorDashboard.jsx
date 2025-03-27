@@ -1,23 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import PatientRegisterForm from "./PatientRegisterForm"; // Assuming this component exists
+"use client"
+
+import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+import PatientRegisterForm from "./PatientRegisterForm" // Assuming this component exists
 
 const DentistDashboard = () => {
   // State variables for appointments, follow-ups, loading, errors, and UI controls
-  const [appointments, setAppointments] = useState([]);
-  const [followups, setFollowups] = useState([]);
-  const [appointmentsLoading, setAppointmentsLoading] = useState(true);
-  const [followupsLoading, setFollowupsLoading] = useState(true);
-  const [appointmentsError, setAppointmentsError] = useState(null);
-  const [followupsError, setFollowupsError] = useState(null);
-  const [showQuickActions, setShowQuickActions] = useState(false);
-  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [appointments, setAppointments] = useState([])
+  const [followups, setFollowups] = useState([])
+  const [appointmentsLoading, setAppointmentsLoading] = useState(true)
+  const [followupsLoading, setFollowupsLoading] = useState(true)
+  const [appointmentsError, setAppointmentsError] = useState(null)
+  const [followupsError, setFollowupsError] = useState(null)
+  const [showQuickActions, setShowQuickActions] = useState(false)
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false)
 
   // Fetch data on component mount
   useEffect(() => {
-    fetchAppointments();
-    fetchFollowups();
-  }, []);
+    fetchAppointments()
+    fetchFollowups()
+  }, [])
 
   // Fetch appointments from the same endpoint as patient dashboard
   const fetchAppointments = async () => {
@@ -27,21 +29,19 @@ const DentistDashboard = () => {
           Accept: "application/json",
           Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
         },
-      });
+      })
       if (!response.ok) {
-        throw new Error("Failed to fetch appointments");
+        throw new Error("Failed to fetch appointments")
       }
-      const data = await response.json();
-      const appointmentList = Array.isArray(data.complaints)
-        ? data.complaints
-        : [data];
-      setAppointments(appointmentList);
+      const data = await response.json()
+      const appointmentList = Array.isArray(data.complaints) ? data.complaints : [data]
+      setAppointments(appointmentList)
     } catch (err) {
-      setAppointmentsError(err.message);
+      setAppointmentsError(err.message)
     } finally {
-      setAppointmentsLoading(false);
+      setAppointmentsLoading(false)
     }
-  };
+  }
 
   // Fetch follow-ups from the same endpoint as patient dashboard
   const fetchFollowups = async () => {
@@ -51,19 +51,19 @@ const DentistDashboard = () => {
           Accept: "application/json",
           Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
         },
-      });
+      })
       if (!response.ok) {
-        throw new Error("Failed to fetch follow-ups");
+        throw new Error("Failed to fetch follow-ups")
       }
-      const data = await response.json();
-      const followupList = Array.isArray(data.followups) ? data.followups : [data];
-      setFollowups(followupList);
+      const data = await response.json()
+      const followupList = Array.isArray(data.followups) ? data.followups : [data]
+      setFollowups(followupList)
     } catch (err) {
-      setFollowupsError(err.message);
+      setFollowupsError(err.message)
     } finally {
-      setFollowupsLoading(false);
+      setFollowupsLoading(false)
     }
-  };
+  }
 
   // Quick Action Button component
   const QuickActionButton = () => (
@@ -79,12 +79,7 @@ const DentistDashboard = () => {
           viewBox="0 0 24 24"
           stroke="currentColor"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
         </svg>
       </button>
       {showQuickActions && (
@@ -170,11 +165,31 @@ const DentistDashboard = () => {
               </svg>
               View Daily Treatments
             </Link>
+            <Link
+              to="/inventory"
+              className="flex items-center gap-2 p-3 bg-[var(--darkgreen)] text-white rounded-lg hover:bg-[var(--darkergreen)] transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+                />
+              </svg>
+              Manage Inventory
+            </Link>
           </div>
         </div>
       )}
     </div>
-  );
+  )
 
   // Action Cards component
   const ActionCards = () => (
@@ -202,9 +217,7 @@ const DentistDashboard = () => {
             </svg>
           </div>
           <div className="text-left">
-            <h3 className="text-xl font-semibold text-[var(--darkergreen)]">
-              Register Patient
-            </h3>
+            <h3 className="text-xl font-semibold text-[var(--darkergreen)]">Register Patient</h3>
             <p className="text-gray-600">Add a new patient to the system</p>
           </div>
         </div>
@@ -233,9 +246,7 @@ const DentistDashboard = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-xl font-semibold text-[var(--darkergreen)]">
-              Schedule Appointment
-            </h3>
+            <h3 className="text-xl font-semibold text-[var(--darkergreen)]">Schedule Appointment</h3>
             <p className="text-gray-600">Book a new appointment</p>
           </div>
         </div>
@@ -264,9 +275,7 @@ const DentistDashboard = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-xl font-semibold text-[var(--darkergreen)]">
-              Search Patient
-            </h3>
+            <h3 className="text-xl font-semibold text-[var(--darkergreen)]">Search Patient</h3>
             <p className="text-gray-600">Find patient records</p>
           </div>
         </div>
@@ -295,9 +304,7 @@ const DentistDashboard = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-xl font-semibold text-[var(--darkergreen)]">
-              View Daily Treatments
-            </h3>
+            <h3 className="text-xl font-semibold text-[var(--darkergreen)]">View Daily Treatments</h3>
             <p className="text-gray-600">Manage today's treatments</p>
           </div>
         </div>
@@ -326,9 +333,7 @@ const DentistDashboard = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-xl font-semibold text-[var(--darkergreen)]">
-              Manage Treatments
-            </h3>
+            <h3 className="text-xl font-semibold text-[var(--darkergreen)]">Manage Treatments</h3>
             <p className="text-gray-600">Manage treatment details</p>
           </div>
         </div>
@@ -357,50 +362,70 @@ const DentistDashboard = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-xl font-semibold text-[var(--darkergreen)]">
-              Manage Prescriptions
-            </h3>
+            <h3 className="text-xl font-semibold text-[var(--darkergreen)]">Manage Prescriptions</h3>
             <p className="text-gray-600">Manage prescription records</p>
           </div>
         </div>
       </Link>
+
+      {/* Inventory Management - New Card */}
+      <Link
+        to="/inventory"
+        className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
+      >
+        <div className="flex items-center gap-4">
+          <div className="bg-[var(--darkgreen)] p-4 rounded-full text-white">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+              />
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold text-[var(--darkergreen)]">Inventory Management</h3>
+            <p className="text-gray-600">Track and manage clinic supplies</p>
+          </div>
+        </div>
+      </Link>
     </div>
-  );
+  )
+
   // Dashboard Stats component
   const DashboardStats = () => (
     <div className="bg-white rounded-lg shadow-md p-4 mb-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-[var(--darkgreen)] bg-opacity-10 p-4 rounded-lg">
-          <h3 className="text-lg font-semibold text-white">
-            Today's Appointments
-          </h3>
+          <h3 className="text-lg font-semibold text-white">Today's Appointments</h3>
           <p className="text-3xl font-bold text-white">{appointments.length}</p>
         </div>
         <div className="bg-[var(--darkgreen)] bg-opacity-10 p-4 rounded-lg">
-          <h3 className="text-lg font-semibold text-white">
-            Today's Follow-ups
-          </h3>
+          <h3 className="text-lg font-semibold text-white">Today's Follow-ups</h3>
           <p className="text-3xl font-bold text-white">{followups.length}</p>
         </div>
       </div>
     </div>
-  );
+  )
 
   // Main render
   return (
     <div className="min-h-screen flex justify-center bg-gray-100 p-6">
       <div className="w-2/3">
-        <h1 className="text-3xl font-bold text-center text-[var(--txt)] my-10">
-          Dentist Dashboard
-        </h1>
+        <h1 className="text-3xl font-bold text-center text-[var(--txt)] my-10">Dentist Dashboard</h1>
         <ActionCards />
         <DashboardStats />
 
         {/* Appointments Section */}
         <div className="mt-8">
-          <h2 className="text-2xl font-semibold text-[var(--darkergreen)] mb-4">
-            Appointments
-          </h2>
+          <h2 className="text-2xl font-semibold text-[var(--darkergreen)] mb-4">Appointments</h2>
           <div className="bg-white rounded-lg shadow-md p-4">
             {appointmentsLoading ? (
               <p className="text-[var(--txt)]">Loading appointments...</p>
@@ -424,28 +449,15 @@ const DentistDashboard = () => {
                   <tbody>
                     {appointments.map((appointment, index) => (
                       <tr key={index} className="even:bg-gray-100 odd:bg-white">
+                        <td className="border border-gray-300 p-2">{appointment.name || "N/A"}</td>
+                        <td className="border border-gray-300 p-2">{appointment.phonenumber || "N/A"}</td>
+                        <td className="border border-gray-300 p-2">{appointment.age || "N/A"}</td>
+                        <td className="border border-gray-300 p-2">{appointment.complaint || "N/A"}</td>
                         <td className="border border-gray-300 p-2">
-                          {appointment.name || "N/A"}
+                          {appointment.time ? appointment.time.split(".")[0].slice(0, 5) : "N/A"}
                         </td>
                         <td className="border border-gray-300 p-2">
-                          {appointment.phonenumber || "N/A"}
-                        </td>
-                        <td className="border border-gray-300 p-2">
-                          {appointment.age || "N/A"}
-                        </td>
-                        <td className="border border-gray-300 p-2">
-                          {appointment.complaint || "N/A"}
-                        </td>
-                        <td className="border border-gray-300 p-2">
-                          {appointment.time
-                            ? appointment.time.split(".")[0].slice(0, 5)
-                            : "N/A"}
-                        </td>
-                        <td className="border border-gray-300 p-2">
-                          <Link
-                            to={`/dailytreatment/${appointment.id}`}
-                            className="text-blue-500 hover:underline"
-                          >
+                          <Link to={`/dailytreatment/${appointment.id}`} className="text-blue-500 hover:underline">
                             View Treatment
                           </Link>
                         </td>
@@ -460,9 +472,7 @@ const DentistDashboard = () => {
 
         {/* Follow-ups Section */}
         <div className="mt-8">
-          <h2 className="text-2xl font-semibold text-[var(--darkergreen)] mb-4">
-            Follow-ups
-          </h2>
+          <h2 className="text-2xl font-semibold text-[var(--darkergreen)] mb-4">Follow-ups</h2>
           <div className="bg-white rounded-lg shadow-md p-4">
             {followupsLoading ? (
               <p className="text-[var(--txt)]">Loading follow-ups...</p>
@@ -486,28 +496,15 @@ const DentistDashboard = () => {
                   <tbody>
                     {followups.map((followup, index) => (
                       <tr key={index} className="even:bg-gray-100 odd:bg-white">
+                        <td className="border border-gray-300 p-2">{followup.name || "N/A"}</td>
+                        <td className="border border-gray-300 p-2">{followup.phonenumber || "N/A"}</td>
+                        <td className="border border-gray-300 p-2">{followup.age || "N/A"}</td>
+                        <td className="border border-gray-300 p-2">{followup.followup || "N/A"}</td>
                         <td className="border border-gray-300 p-2">
-                          {followup.name || "N/A"}
+                          {followup.time ? followup.time.split(".")[0].slice(0, 5) : "N/A"}
                         </td>
                         <td className="border border-gray-300 p-2">
-                          {followup.phonenumber || "N/A"}
-                        </td>
-                        <td className="border border-gray-300 p-2">
-                          {followup.age || "N/A"}
-                        </td>
-                        <td className="border border-gray-300 p-2">
-                          {followup.followup || "N/A"}
-                        </td>
-                        <td className="border border-gray-300 p-2">
-                          {followup.time
-                            ? followup.time.split(".")[0].slice(0, 5)
-                            : "N/A"}
-                        </td>
-                        <td className="border border-gray-300 p-2">
-                          <Link
-                            to={`/dailytreatment/${followup.id}`}
-                            className="text-blue-500 hover:underline"
-                          >
+                          <Link to={`/dailytreatment/${followup.id}`} className="text-blue-500 hover:underline">
                             View Treatment
                           </Link>
                         </td>
@@ -527,13 +524,8 @@ const DentistDashboard = () => {
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold text-[var(--txt)]">
-                  Register Patient
-                </h2>
-                <button
-                  onClick={() => setIsRegisterModalOpen(false)}
-                  className="text-gray-500 hover:text-gray-700"
-                >
+                <h2 className="text-2xl font-bold text-[var(--txt)]">Register Patient</h2>
+                <button onClick={() => setIsRegisterModalOpen(false)} className="text-gray-500 hover:text-gray-700">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -541,12 +533,7 @@ const DentistDashboard = () => {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               </div>
@@ -556,7 +543,8 @@ const DentistDashboard = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DentistDashboard;
+export default DentistDashboard
+
