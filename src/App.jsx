@@ -19,7 +19,7 @@ import TreatmentManagement from "./pages/TreatmentManagement.jsx"
 import PrescriptionManagement from "./pages/PrescriptionManagement.jsx"
 import PatientDatabase from "./pages/PatientDatabase.jsx"
 import DoctorDashboard from "./pages/DoctorDashboard.jsx"
-import AnalyticsDashboard from "./pages/AnalyticsDashboard.jsx"
+import AppointmentCalendar from "./pages/AppointmentCalendar.jsx"
 import "react-toastify/dist/ReactToastify.css"
 
 const App = () => {
@@ -61,6 +61,9 @@ const App = () => {
             <Link to="/appointment" className="p-2">
               Appointment
             </Link>
+            <Link to="/calendar" className="p-2">
+              Calendar
+            </Link>
             <Link to="/sendmessage" className="p-2">
               SendMessage
             </Link>
@@ -72,9 +75,6 @@ const App = () => {
             </Link>
             <Link to="/doctordashboard" className="p-2">
               DoctorDashboard
-            </Link>
-            <Link to="/analytics" className="p-2">
-              Analytics
             </Link>
           </div>
         </nav>
@@ -91,7 +91,7 @@ const App = () => {
           <Route element={<ProtectedRoute allowedRoles={["dentist"]} />}>
             <Route path="/dailytreat" element={<DailyTreatment />} />
             <Route path="/doctordashboard" element={<DoctorDashboard />} />
-            <Route path="/analytics" element={<AnalyticsDashboard />} />
+            <Route path="/calendar" element={<AppointmentCalendar />} />
           </Route>
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/sendmessage" element={<SendMessage />} />
