@@ -13,13 +13,16 @@ import {
   ArrowRight 
 } from 'lucide-react';
 
+const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE || "./src/assets/";
+
 const Home = () => {
+  
   const services = [
-    { name: "RCT", img: "./src/assets/toothrct.jpg" },
-    { name: "Episectomy", img: "./src/assets/toothepisectomy.jpg" },
-    { name: "Scaling", img: "./src/assets/toothscaling.jpg" },
-    { name: "Cavity Filling", img: "./src/assets/toothcavityfilling.png" },
-    { name: "Orthodontic Treatment", img: "./src/assets/toothorthodontic.jpg" },
+    { name: "RCT", img: `${IMAGE_BASE_URL}toothrct.jpg` },
+    { name: "Episectomy", img: `${IMAGE_BASE_URL}toothepisectomy.jpg` },
+    { name: "Scaling", img: `${IMAGE_BASE_URL}toothscaling.jpg` },
+    { name: "Cavity Filling", img: `${IMAGE_BASE_URL}toothcavityfilling.png` },
+    { name: "Orthodontic Treatment", img: `${IMAGE_BASE_URL}toothorthodontic.jpg` },
   ];
 
   return (
@@ -35,7 +38,7 @@ const Home = () => {
           </Link>
         </div>
         <img 
-          src="./src/assets/dentist.jpg" 
+          src={`${IMAGE_BASE_URL}dentist.jpg`} 
           alt="Dentist" 
           className="md:w-1/2 h-auto rounded-lg mt-8 md:mt-0 shadow-lg transform hover:scale-105 transition-transform duration-300" 
         /> 
@@ -70,11 +73,11 @@ const Home = () => {
             <div className="flex justify-between items-center my-14 px-10">
         
             {[
-              { name: "RCT", img: "./src/assets/toothrct.jpg" },
-              { name: "Episectomy", img: "./src/assets/toothepisectomy.jpg" },
-              { name: "Scaling", img: "./src/assets/toothscaling.jpg" },
-              { name: "Cavity Filling", img: "./src/assets/toothcavityfilling.png" },
-              { name: "Orthodontic Treatment", img: "./src/assets/toothorthodontic.jpg" },
+              { name: "RCT", img: `${IMAGE_BASE_URL}toothrct.jpg` },
+              { name: "Episectomy", img: `${IMAGE_BASE_URL}toothepisectomy.jpg` },
+              { name: "Scaling", img: `${IMAGE_BASE_URL}toothscaling.jpg` },
+              { name: "Cavity Filling", img: `${IMAGE_BASE_URL}toothcavityfilling.png` },
+              { name: "Orthodontic Treatment", img: `${IMAGE_BASE_URL}toothorthodontic.jpg` },
             ].map((feature, index) => (
               <div key={index} className="relative group p-5 ">
             {/* Feature Circle */}
@@ -109,7 +112,7 @@ const Home = () => {
             <div className="md:w-1/2">
               <a href="https://mapcarta.com/N7690809383" target="_blank" rel="noopener noreferrer">
                 <img 
-                  src="/src/assets/maps.png" 
+                  src={`${IMAGE_BASE_URL}maps.png`} 
                   alt="Clinic Map" 
                   className="rounded-lg shadow-md hover:opacity-80 transition-opacity duration-300 w-full"
                 />
@@ -143,7 +146,7 @@ const Home = () => {
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold mb-6">Doctor's Certifications</h2>
           <img 
-            src="/src/assets/clinicLogo.png" 
+            src={`${IMAGE_BASE_URL}clinicLogo.png`} 
             alt="Doctor's Certification" 
             className="mx-auto my-4 max-w-xs rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
           />
